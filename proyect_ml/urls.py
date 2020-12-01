@@ -6,5 +6,5 @@ from documents import views as documents_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', documents_views.home),
-    path('search/', documents_views.result),
+    path('search/', documents_views.result, name="search"),
 ]

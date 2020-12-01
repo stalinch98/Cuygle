@@ -11,45 +11,30 @@
 
 <body>
     <header class="header">
-        <nav class="nav">
-            <ul class="nav-list">
-                <li><a href="">Imagenes</a></li>
-                <li class="nav-list__icon">
-                    <a href=""></a>
-                </li>
-                <li>
-                    <a href=""><img src="https://lh3.googleusercontent.com/ogw/ADGmqu8gxC-KeK4pgmNaYRAg23qa_uAxhnhIO38E-ePe=s32-c-mo" alt="Profile Picture" /></a>
-                </li>
-            </ul>
-        </nav>
     </header>
     <main>
         <section class="main-logo">
             <img src="{% static 'imagenes/CUYGLE-1.png' %}" alt="Cuygle logo" height="500px" />
         </section>
-        <section class="main-input">
-            <div class="main-input__container">
-                <span class="input-search-icon"></span>
-                <input type="text" />
-                <a class="input-micro-icon" href=""></a>
-            </div>
-        </section>
-        <section class="main-buttons">
-            <div><button>Buscar con Cuygle</button></div>
-            <div><button>Me siento con suerte</button></div>
-        </section>
+        <form method="POST" action="{% url 'search' %}">
+            {% csrf_token %}
+            <section class="main-input">
+                <div class="main-input__container">
+                    <span class="input-search-icon"></span>
+                    <input type="text" name="query">
+                </div>
+            </section>
+            <section class="main-buttons">
+                <div><button type="submit ">Buscar con Cuygle</button></div>
+            </section>
+        </form>
     </main>
     <footer class="footer">
-        <ul class="footer-left">
-            <li><a href="">Publicidad</a></li>
-            <li><a href="">Negocios</a></li>
-            <li><a href="">Acerca de</a></li>
-            <li><a href="">Como funciona la busqueda</a></li>
-        </ul>
-        <ul class="footer-right">
-            <li><a href="">Privacidad</a></li>
-            <li><a href="">Terminos</a></li>
-            <li><a href="">Configuracion</a></li>
+        <ul class="footer-center">
+            <li><a href="">Stalin Chiguano</a></li>
+            <li><a href="">Alfredo Catucuago</a></li>
+            <li><a href="">Daniel Dominguez</a></li>
+            <li><a href="">Joel Estacio</a></li>
         </ul>
     </footer>
 </body>

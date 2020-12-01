@@ -171,12 +171,8 @@ main {
     padding-left: 0;
 }
 
-.footer-left {
-    justify-self: left;
-}
-
-.footer-right {
-    justify-self: right;
+.footer-center {
+    justify-self: center;
 }
 
 .footer ul li a {

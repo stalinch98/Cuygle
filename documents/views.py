@@ -158,7 +158,7 @@ def matriz_distancias(d1, d2):
 
 
 def getBooks(query):
-    serpwow = GoogleSearchResults("BB5814F4D0CA4B85A0E59711D4B0F1FB")
+    serpwow = GoogleSearchResults("3470FC62D66A40CAA60630032A14BDD8")
 
     params = {
         "q": query,
@@ -200,4 +200,5 @@ def result(request):
     dis_abst = cosineDistance(no, VAL_ABSTRACTS)
     final = matriz_distancias(dis_tit, dis_abst)
 
+    
     return render(request, 'result.html', {'data': data})

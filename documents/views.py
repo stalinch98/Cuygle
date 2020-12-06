@@ -1,4 +1,3 @@
-# Django
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 from sklearn.feature_extraction.text import CountVectorizer
@@ -178,6 +177,7 @@ def home(request):
 
 def result(request):
     # Listas donde se guardaran los datos del csv
+    hola = [{'name': 'stalin'}]
     titles = []
     abstracts = []
     q = request.POST['query']
@@ -199,6 +199,7 @@ def result(request):
     no = normalizacion(val_tfidf)
     dis_abst = cosineDistance(no, VAL_ABSTRACTS)
     final = matriz_distancias(dis_tit, dis_abst)
-
-    
-    return render(request, 'result.html', {'data': data})
+    if request.is_ajax():
+        return render(request, 'similar.html', {'data': data})        
+    else:
+        return render(request, 'result.html', {'data': data})

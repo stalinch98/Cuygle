@@ -39,17 +39,48 @@
                             
                                         {% for j in similar_top %}
                                         {% if j.val == i.position %}
+                                        {% for k in data %}
+                                        {% if k.position == j.top_1 %}
                                         <div class="col-12 offset-lg-3 col-lg-6 mt-2">
                                             <div class="card ">
                                                 <div class="card-header ">
                                                 </div>
                                                 <div class="card-body ">
-                                                    <h3>{{ j.top_1 }}</h3>
-                                                    <h3>{{ j.top_2 }}</h3>
-                                                    <h3>{{ j.top_3 }}</h3>
+                                                    <h4>{{ k.title }}</h4>
                                                 </div>
                                             </div>
                                         </div>
+                                        {% endif %}
+                                        {% endfor %}
+
+                                        {% for k in data %}
+                                        {% if k.position == j.top_2 %}
+                                        <div class="col-12 offset-lg-3 col-lg-6 mt-2">
+                                            <div class="card ">
+                                                <div class="card-header ">
+                                                </div>
+                                                <div class="card-body ">
+                                                    <h4>{{ k.title }}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+
+                                        {% for k in data %}
+                                        {% if k.position == j.top_3 %}
+                                        <div class="col-12 offset-lg-3 col-lg-6 mt-2">
+                                            <div class="card ">
+                                                <div class="card-header ">
+                                                </div>
+                                                <div class="card-body ">
+                                                    <h4>{{ k.title }}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
+
                                         {% endif %}
                                         {% endfor %}
                                 </div>

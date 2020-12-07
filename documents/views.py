@@ -184,6 +184,7 @@ def top(dis_mt):
         dic = {}
         for k in range(0, len(top_final)):
             dic['top_{}'.format(k + 1)] = (top_final[k]+1)
+        dic['val'] = (i+1)
         val_final.append(dic)
     return val_final
 
@@ -219,5 +220,4 @@ def result(request):
 
     similar_top = top(final)
 
-    render(request, 'similar.html', {'data': data, 'similar_top': similar_top})
     return render(request, 'result.html', {'data': data, 'similar_top': similar_top})

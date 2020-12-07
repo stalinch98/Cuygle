@@ -199,7 +199,6 @@ def result(request):
     no = normalizacion(val_tfidf)
     dis_abst = cosineDistance(no, VAL_ABSTRACTS)
     final = matriz_distancias(dis_tit, dis_abst)
-    if request.is_ajax():
-        return render(request, 'similar.html', {'data': data})        
-    else:
-        return render(request, 'result.html', {'data': data})
+
+    render(request, 'similar.html', {'data': data})
+    return render(request, 'result.html', {'data': data})

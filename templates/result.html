@@ -29,8 +29,8 @@
                         <p class="card-text ">{{ i.domain }}</p>
                         <p class="card-text ">{{ i.snippet }}</p>
                         <button id='gpt2' class="btn btn-primary ">Gpt2</button>
-                        <button  onclick="myFunction()" id='similares' class="btn btn-primary ">Similares</button>
-                        <div id="similars" style="display: none">
+                        <button  onclick="myFunction('{{ i.position }}')" class="btn btn-primary ">Similares</button>
+                        <div id="{{ i.position }}" style="display: none">
                             {% include "similar.html" %}
                         </div>
                     </div>
@@ -56,8 +56,8 @@
     -->
     {% block javascript %}
     <script>
-        function myFunction() {
-            var x = document.getElementById("similars");
+        function myFunction(id_div) {
+            var x = document.getElementById(id_div);
             if (x.style.display === "none") {
                 x.style.display = "block";
             } else {

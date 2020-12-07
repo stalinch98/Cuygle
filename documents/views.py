@@ -180,10 +180,10 @@ def top(dis_mt):
             top[j] = cor[j]
         top2 = sorted(top.items(), reverse=True, key=lambda x: x[1])
         top_final = [i[0] for i in top2]
-        top_final = top_final[0:3]
+        top_final = top_final[1:4]
         dic = {}
         for k in range(0, len(top_final)):
-            dic['top_{}'.format(k + 1)] = top_final[k]
+            dic['top_{}'.format(k + 1)] = (top_final[k]+1)
         val_final.append(dic)
     return val_final
 
@@ -219,5 +219,5 @@ def result(request):
 
     similar_top = top(final)
 
-    render(request, 'similar.html', {'data': similar_top})
-    return render(request, 'result.html', {'data': data})
+    render(request, 'similar.html', {'data': data, 'similar_top': similar_top})
+    return render(request, 'result.html', {'data': data, 'similar_top': similar_top})

@@ -171,15 +171,32 @@ def getBooks(query):
     return result['scholar_results']
 
 
+def top(dis_mt):
+    top = {}
+    val_final = []
+    for i in range(0, len(dis_mt)):
+        cor = dis_mt[i]
+        for j in range(0, len(dis_mt[i])):
+            top[j] = cor[j]
+        top2 = sorted(top.items(), reverse=True, key=lambda x: x[1])
+        top_final = [i[0] for i in top2]
+        top_final = top_final[0:3]
+        dic = {}
+        for k in range(0, len(top_final)):
+            dic['top_{}'.format(k + 1)] = top_final[k]
+        val_final.append(dic)
+    return val_final
+
+
 def home(request):
     return render(request, 'index.html')
 
 
 def result(request):
     # Listas donde se guardaran los datos del csv
-    hola = [{'name': 'stalin'}]
     titles = []
     abstracts = []
+
     q = request.POST['query']
     data = getBooks(q)
     for i in data:
@@ -200,5 +217,7 @@ def result(request):
     dis_abst = cosineDistance(no, VAL_ABSTRACTS)
     final = matriz_distancias(dis_tit, dis_abst)
 
-    render(request, 'similar.html', {'data': data})
+    similar_top = top(final)
+
+    render(request, 'similar.html', {'data': similar_top})
     return render(request, 'result.html', {'data': data})

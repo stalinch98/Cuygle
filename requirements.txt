@@ -3,3 +3,5 @@ google-search-results-serpwow>=1.1.11
 nltk>=3.5
 numpy>=1.19.4
 scikit_learn>=0.23.2
+transformers>=4.0.0
+torch>=1.7.0

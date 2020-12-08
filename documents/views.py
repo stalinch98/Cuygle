@@ -45,7 +45,7 @@ def gen_text(prompt_text, tokenizer, model, n_seqs=1, max_length=25):
         repetition_penalty=1.2,
         do_sample=True,
         num_return_sequences=n_seqs
-    ) 
+    )
     if len(output_sequences.shape) > 2:
         output_sequences.squeeze_()
     generated_sequences = []
@@ -255,10 +255,15 @@ def result(request):
     final = matriz_distancias(dis_tit, dis_abst)
 
     similar_top = top(final)
-    val = gen_text("Hi my name is stalin and",
-         gpt_tokenizer,
-         gpt_model,
-         max_length=50)
-    print(val[0])
 
     return render(request, 'result.html', {'data': data, 'similar_top': similar_top})
+
+
+def gpt_view(request):
+    val = gen_text("Hi my name is stalin and",
+                   gpt_tokenizer, gpt_model, max_length=50)
+    print(val[0])
+    abs_gp = {
+        'val': val[0]
+    }
+    return render('ajax_gpt2.html', {'abs_gp': abs_gp})

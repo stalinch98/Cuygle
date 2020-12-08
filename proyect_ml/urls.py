@@ -7,4 +7,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home/', documents_views.home),
     path('search/', documents_views.result, name="search"),
+    path('ajax_gpt/', documents_views.gpt_view),
 ]

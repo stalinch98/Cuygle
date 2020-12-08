@@ -1,0 +1,25 @@
+<div id="refresh-this-div">
+  <h1>This is a Test Ajax Page</h1>
+  {% for i in abs_gp %}
+  <p class="">{{ i.val }}</p>
+  {% endfor %}
+  <input id="my-text-input-id" type="text" />
+  <button type="submit" class="add-comment-button">Add</button>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+      $("button.add-comment-button").click(function () {
+        var com_body = $("#my-text-input-id").val();
+        console.log(com_body);
+        $.ajax({
+          url: "ajax_gpt/",
+          success: function (data) {
+            var html = $(data).filter("#refresh-this-div").html();
+            $("#refresh-this-div").html(html);
+          },
+        });
+      });
+    });
+  </script>

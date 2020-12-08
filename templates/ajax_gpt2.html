@@ -1,25 +1,20 @@
-<div id="refresh-this-div">
-  <h1>This is a Test Ajax Page</h1>
-  {% for i in abs_gp %}
-  <p class="">{{ i.val }}</p>
-  {% endfor %}
-  <input id="my-text-input-id" type="text" />
-  <button type="submit" class="add-comment-button">Add</button>
+<div id="refresh-this-div" class="col-12 offset-lg-3 col-lg-6 mt-2">
+  <div class="card">
+    <div class="card-header">
+      <h1>Gpt2</h1>
+    </div>
+    <div class="card-body">
+      {% for i in abs_gp %}
+      <p>{{ i.val }}</p>
+      {% endfor %}
+    </div>
+    <div class="card-body form-group shadow-textarea">
+      <textarea class="form-control z-depth-1" id="my-text-input-id" rows="3"></textarea>
+    </div>
+    <div class="card-body">
+      <button type="submit" class="btn btn-primary" id="add-comment-button">
+        Try Again
+      </button>
+    </div>
+  </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-      $("button.add-comment-button").click(function () {
-        var com_body = $("#my-text-input-id").val();
-        console.log(com_body);
-        $.ajax({
-          url: "/ajax_gpt",
-          success: function (data) {
-            var html = $(data).filter("#refresh-this-div").html();
-            $("#refresh-this-div").html(html);
-          }
-        });
-      });
-    });
-  </script>

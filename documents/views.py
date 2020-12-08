@@ -193,7 +193,7 @@ def matriz_distancias(d1, d2):
 
 
 def getBooks(query):
-    serpwow = GoogleSearchResults("B22D3A7F7933462BA4E73EAB39F84E2F")
+    serpwow = GoogleSearchResults("DEDEB4F3C3B8431CAE35B647386B5B5F")
 
     params = {
         "q": query,
@@ -260,12 +260,13 @@ def result(request):
 
 
 def gpt_view(request):
-    val = gen_text("Hi my name is stalin and",
-                   gpt_tokenizer, gpt_model, max_length=50)
-    abs_gp = {
-        'val': val[0]
-    }
-    gpt2_final=[]
-    gpt2_final.append(abs_gp)
-
+    if request.is_ajax and request.method == "GET":
+        com_body = request.GET.get('com_body', None)
+        print(com_body)
+        val = gen_text(com_body, gpt_tokenizer, gpt_model, max_length=50)
+        abs_gp = {
+            'val': val[0]
+        }
+        gpt2_final = []
+        gpt2_final.append(abs_gp)
     return render(request, 'ajax_gpt2.html', {'abs_gp': gpt2_final})

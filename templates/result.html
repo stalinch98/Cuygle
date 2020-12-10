@@ -142,9 +142,8 @@
     </script>
 
 
-    <script type="text/javascript">
-    $(document).ready(function () {
-        $("#add-comment-button").click(function () {
+<script type="text/javascript">
+    function prueba(){
         let com_body = $("#my-text-input-id").val();
         console.log(com_body);
         $.ajax({
@@ -158,8 +157,7 @@
             $("#refresh-this-div").html(html);
             },
         });
-        });
-    });
+    }
     </script>
     </body>
 </html>

@@ -260,13 +260,12 @@ def result(request):
 
 
 def gpt_view(request):
-    if request.is_ajax and request.method == "GET":
-        com_body = request.GET.get('com_body', None)
-        print(com_body)
-        val = gen_text(com_body, gpt_tokenizer, gpt_model, max_length=50)
-        abs_gp = {
-            'val': val[0]
-        }
-        gpt2_final = []
-        gpt2_final.append(abs_gp)
+    com_body = request.GET.get('com_body', None)
+    print(com_body)
+    val = gen_text(com_body, gpt_tokenizer, gpt_model, max_length=50)
+    abs_gp = {
+        'val': val[0]
+    }
+    gpt2_final = []
+    gpt2_final.append(abs_gp)
     return render(request, 'ajax_gpt2.html', {'abs_gp': gpt2_final})

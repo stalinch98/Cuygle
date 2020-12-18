@@ -33,7 +33,7 @@ gpt_tokenizer = transformers.GPT2Tokenizer.from_pretrained('gpt2-large')
 gpt_model = transformers.GPT2LMHeadModel.from_pretrained('gpt2-large')
 
 
-def gen_text(prompt_text, tokenizer, model, n_seqs=1, max_length=25):
+def gen_text(prompt_text, tokenizer, model, n_seqs=1, max_length=125):
     encoded_prompt = tokenizer.encode(
         prompt_text, add_special_tokens=False, return_tensors="pt")
     output_sequences = model.generate(
@@ -193,14 +193,15 @@ def matriz_distancias(d1, d2):
 
 
 def getBooks(query):
-    serpwow = GoogleSearchResults("DEDEB4F3C3B8431CAE35B647386B5B5F")
+    serpwow = GoogleSearchResults("3157272BDD884C99A66ABDDCAABA66C1")
 
     params = {
         "q": query,
         "search_type": "scholar",
         "sort_by": "date",
+        "time_period": "last_year",
         "hl": "en",
-        "time_period": "last_year"
+        "gl": "us"
     }
 
     result = serpwow.get_json(params)
@@ -217,9 +218,12 @@ def top(dis_mt):
         top2 = sorted(top.items(), reverse=True, key=lambda x: x[1])
         top_final = [i[0] for i in top2]
         top_final = top_final[1:4]
+        top_final2 = [i[1] for i in top2]
+        top_final2 = top_final2[1:4]
         dic = {}
         for k in range(0, len(top_final)):
             dic['top_{}'.format(k + 1)] = (top_final[k]+1)
+            dic['val_{}'.format(k + 1)] = round(top_final2[k]*100, 2)
         dic['val'] = (i+1)
         val_final.append(dic)
     return val_final
@@ -253,7 +257,6 @@ def result(request):
     no = normalizacion(val_tfidf)
     dis_abst = cosineDistance(no, VAL_ABSTRACTS)
     final = matriz_distancias(dis_tit, dis_abst)
-
     similar_top = top(final)
 
     return render(request, 'result.html', {'data': data, 'similar_top': similar_top})
@@ -261,10 +264,10 @@ def result(request):
 
 def gpt_view(request):
     com_body = request.GET.get('com_body', None)
-    print(com_body)
     val = gen_text(com_body, gpt_tokenizer, gpt_model, max_length=50)
+    val_total = val[0].replace(com_body, '')
     abs_gp = {
-        'val': val[0]
+        'val': str(val_total).capitalize()
     }
     gpt2_final = []
     gpt2_final.append(abs_gp)

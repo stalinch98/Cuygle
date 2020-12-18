@@ -198,7 +198,7 @@ def getBooks(query):
     params = {
         "q": query,
         "search_type": "scholar",
-        "sort_by": "date",
+        "sort_by": "relevance",
         "time_period": "last_year",
         "hl": "en",
         "gl": "us"
@@ -259,7 +259,34 @@ def result(request):
     final = matriz_distancias(dis_tit, dis_abst)
     similar_top = top(final)
 
-    return render(request, 'result.html', {'data': data, 'similar_top': similar_top})
+    # Inicio consulta documento
+    titles.append(q)
+    abstracts.append(q)
+    dis_tit2 = jaccardDistance(clean(titles), VAL_TITLES)
+    pe2 = pesado(bagWords(clean(abstracts)))
+    doc_fre2 = documetFrecuency(pe2)
+    val_idf2 = idf(doc_fre2, pe2)
+    val_tfidf2 = tf_idf(pe2, val_idf2)
+    no2 = normalizacion(val_tfidf2)
+    dis_abst2 = cosineDistance(no2, VAL_ABSTRACTS)
+    final2 = matriz_distancias(dis_tit2, dis_abst2)
+    valTop = final2[10]
+    top_doc = {}
+    for j in range(0, len(valTop)):
+        top_doc[j] = round(valTop[j] * 100, 2)
+    top2 = sorted(top_doc.items(), reverse=True, key=lambda x: x[1])
+    top_final = [i[0] for i in top2]
+    top_final = top_final[1:11]
+    top_final2 = [i[1] for i in top2]
+    top_final2 = top_final2[1:11]
+    data_final = []
+    for i in top_final:
+        data_final.append(data[i])
+    for i, j in zip(data_final, top_final2):
+        i['por'] = j
+    # Fin consulta documento
+
+    return render(request, 'result.html', {'data': data_final, 'similar_top': similar_top})
 
 
 def gpt_view(request):
